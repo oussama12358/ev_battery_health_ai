@@ -48,6 +48,7 @@ Thumbs.db
 secrets.*
 
 # Large raw datasets 
+data/raw/
 Nasa_kaggle_dataset/data/
 Nasa_kaggle_dataset/metadata.csv
 
