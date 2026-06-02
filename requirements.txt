@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────────────
+# EV Battery Health AI — Python Dependencies
+# Python >= 3.10 required
+# ─────────────────────────────────────────────────────────────────────
+
+# Core data science
+numpy
+pandas
+scipy
+pyarrow           # Parquet support
+
+# Machine learning
+scikit-learn
+xgboost
+
+# Deep learning
+tensorflow   # Keras 3 included
+
+# Explainability
+shap
+
+# Visualisation
+matplotlib
+seaborn
+
+# Dashboard
+streamlit
+
+# API
+fastapi
+uvicorn[standard]
+python-multipart  # file upload support
+pydantic
+
+# Model persistence
+joblib
+
+# Notebook support (optional, for EDA)
+jupyter
+ipykernel
+
+# Testing
+pytest
+pytest-cov
+httpx      # FastAPI test client

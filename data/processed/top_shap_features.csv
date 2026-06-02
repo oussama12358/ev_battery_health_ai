@@ -1,0 +1,11 @@
+feature,mean_abs_shap
+dis_charge_throughput_ah,0.114534825
+chg_i_mean,0.02704665
+dis_duration_s,0.022762338
+time_to_4v_s,0.02030661
+cumulative_throughput_ah,0.01693991
+dis_i_mean,0.0115503725
+rul_ratio,0.009881159
+cycle,0.00830489
+dis_i_std,0.0067553762
+dis_v_end,0.0064637964

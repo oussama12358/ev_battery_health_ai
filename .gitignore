@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+venv/
+.venv1/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.pytest_cache/
+.tox/
+coverage.xml
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+*.env
+secrets.*
+
+# Large raw datasets 
+Nasa_kaggle_dataset/data/
+Nasa_kaggle_dataset/metadata.csv
+
+# Trained models & weights
+models/saved/
+*.h5
+*.keras
+*.weights.h5
+*.npy
+*.npz
+
+# Logs
+*.log
+
+# Other
+*.pem
+*.key
