@@ -279,7 +279,7 @@ def build_lstm_sequences(
 
 
 if __name__ == "__main__":
-    from utils.data_generator import generate_battery_dataset
+    from utils.data_loader import generate_battery_dataset
     raw = generate_battery_dataset()
     feat = extract_cycle_features(raw)
     print(feat.shape)

@@ -18,13 +18,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 class TestDataGenerator:
     def test_generates_dataframe(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         df = generate_battery_dataset(save_path=str(tmp_path))
         assert isinstance(df, pd.DataFrame)
         assert len(df) > 0
 
     def test_required_columns(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         df = generate_battery_dataset(save_path=str(tmp_path))
         required = ["battery_id", "cycle", "voltage", "current",
                     "temperature", "soh", "rul", "capacity"]
@@ -32,17 +32,17 @@ class TestDataGenerator:
             assert col in df.columns, f"Missing column: {col}"
 
     def test_soh_range(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         df = generate_battery_dataset(save_path=str(tmp_path))
         assert df["soh"].between(0.0, 1.0).all(), "SoH must be in [0, 1]"
 
     def test_voltage_range(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         df = generate_battery_dataset(save_path=str(tmp_path))
         assert df["voltage"].between(2.0, 4.5).all(), "Voltage out of Li-ion range"
 
     def test_three_batteries(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         df = generate_battery_dataset(save_path=str(tmp_path))
         assert df["battery_id"].nunique() == 3
 
@@ -54,7 +54,7 @@ class TestDataGenerator:
 class TestFeatureEngineering:
     @pytest.fixture
     def raw_df(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         return generate_battery_dataset(save_path=str(tmp_path))
 
     def test_extract_cycle_features_shape(self, raw_df):
@@ -126,7 +126,7 @@ class TestRiskScoring:
 
 class TestAnomalyDetection:
     def test_fit_predict(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         from utils.feature_engineering import extract_cycle_features
         from utils.risk_scoring import BatteryAnomalyDetector
 
@@ -140,7 +140,7 @@ class TestAnomalyDetection:
         assert len(preds) == len(feat)
 
     def test_annotate_adds_columns(self, tmp_path):
-        from utils.data_generator import generate_battery_dataset
+        from utils.data_loader import generate_battery_dataset
         from utils.feature_engineering import extract_cycle_features
         from utils.risk_scoring import BatteryAnomalyDetector
 

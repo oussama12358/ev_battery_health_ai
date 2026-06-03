@@ -38,11 +38,11 @@ except Exception as e:
     SEQ_LEN = 10
     print(f"[Warning] Deep learning module unavailable, skipping DL pipeline: {e}")
 
-_utils_data_generator = importlib.import_module("utils.data_generator")
+_utils_data_loader = importlib.import_module("utils.data_loader")
 _utils_feature_engineering = importlib.import_module("utils.feature_engineering")
 _utils_risk_scoring = importlib.import_module("utils.risk_scoring")
 
-generate_battery_dataset = _utils_data_generator.generate_battery_dataset
+generate_battery_dataset = _utils_data_loader.generate_battery_dataset
 extract_cycle_features = _utils_feature_engineering.extract_cycle_features
 BatteryAnomalyDetector = _utils_risk_scoring.BatteryAnomalyDetector
 compute_degradation_rate = _utils_risk_scoring.compute_degradation_rate
@@ -234,8 +234,8 @@ def main():
     print("  EV BATTERY HEALTH AI — FULL TRAINING PIPELINE")
     print("█"*60)
 
-    # 1. Generate data
-    print("\n[1/6] Generating synthetic battery telemetry...")
+    # 1. Load data
+    print("\n[1/6] Loading battery telemetry dataset...")
     raw_df = generate_battery_dataset(save_path="data/raw")
 
     # 2. Feature engineering

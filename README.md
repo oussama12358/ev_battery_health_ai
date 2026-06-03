@@ -62,19 +62,15 @@ Raw Telemetry (V, I, T, cycles)
 
 ## 📊 Dataset & Data Folder Structure
 
-This project uses a **physics-inspired synthetic dataset** modelled after the [NASA Prognostics Center of Excellence Battery Dataset](https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository):
+This repository now includes the real NASA-style dataset (see the `Nasa_kaggle_dataset/` folder) and the codebase prefers loading real telemetry when available.
 
-| Property | Value |
-|---|---|
-| Cell type | Li-ion 18650 |
-| Nominal capacity | 2.0 Ah |
-| Voltage range | 2.7 – 4.2 V |
-| Batteries | 34 simulated batteries (B0005–B0056) |
-| Max cycles | ~200 per battery |
-| Records | ~200,000 timestep rows |
-| Features (cycle-level) | 38 engineered features |
+- Real dataset: `Nasa_kaggle_dataset/` contains `metadata.csv` and many per-test CSV files matching the original NASA Kaggle layout.
+- Loader: Use `utils.data_loader.generate_battery_dataset()` — it will load local datasets, download a Kaggle dataset id (owner/dataset) if provided, or read the tracked raw Parquet/CSV in `data/raw/`.
+- Removed generator: The old `utils/data_generator.py` (synthetic-only module) has been removed to avoid confusion.
+- Test-friendly fallback: When no raw file is found, `generate_battery_dataset(save_path=...)` creates a small, deterministic fallback dataset (3 batteries, ~12 cycles each) and writes `battery_telemetry_raw.parquet` into the provided `save_path` so tests and pipelines remain reproducible.
 
-**Why synthetic?** The real NASA dataset requires manual preprocessing from MATLAB `.mat` files. Our generator produces statistically equivalent data following the same exponential capacity-fade physics, making it reproducible and internship-portfolio ready. Swap `generate_battery_dataset()` with any real CSV loader — the pipeline is data-agnostic.
+Notes:
+- If you want the original large synthetic generator behavior, re-create it or generate your own dataset via `training/run_all.py`.
 
 ### Data Folder Organization
 

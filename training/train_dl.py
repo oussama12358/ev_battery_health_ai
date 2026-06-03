@@ -409,7 +409,7 @@ def train_dl_pipeline(feat_df) -> dict:
 
 
 if __name__ == "__main__":
-    from utils.data_generator import generate_battery_dataset
+    from utils.data_loader import generate_battery_dataset
     from utils.feature_engineering import extract_cycle_features
 
     raw  = generate_battery_dataset()
