@@ -240,7 +240,7 @@ def page_predict(models: dict):
         st.metric('Risk label', risk.risk_label)
         st.write(risk.recommendation)
 
-        record = {'timestamp_utc': datetime.utcnow().isoformat(), 'model': prefix}
+        record = {'timestamp_utc': pd.Timestamp.utcnow(), 'model': prefix}
         record.update({name: float(feature_row.get(name, 0.0)) for name in FEATURE_COLS})
         record.update({'soh_pred': soh_pred, 'rul_pred': rul_pred, 'risk_label': risk.risk_label, 'risk_score': risk.risk_score})
 
@@ -251,10 +251,20 @@ def page_predict(models: dict):
                 df_out = pd.concat([df_existing, pd.DataFrame([record])], ignore_index=True)
             else:
                 df_out = pd.DataFrame([record])
+
+            if 'timestamp_utc' in df_out.columns:
+                df_out['timestamp_utc'] = pd.to_datetime(df_out['timestamp_utc'], errors='coerce')
+
             df_out.to_parquet(path, index=False)
-            st.success(f'Saved prediction to {path.name}')
         except Exception as exc:
             st.warning(f'Could not save prediction log: {exc}')
+
+        chart_data = pd.DataFrame({
+            'metric': ['SoH %', 'RUL cycles', 'Risk score'],
+            'value': [soh_pred * 100.0, rul_pred, risk.risk_score],
+        }).set_index('metric')
+        st.markdown('### Prediction summary')
+        st.bar_chart(chart_data)
 
 
 def main():
